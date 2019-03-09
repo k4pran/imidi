@@ -1,14 +1,18 @@
-import midi_constants
-from meta_messages import meta_message
+from meta_messages.meta_message import MetaMessage
 from enum import Enum
 
+from midi_exceptions import IncorrectStatusException
 
-class KeySignature(meta_message.MetaMessage):
 
-    type = b'\x59'
+class KeySignature(MetaMessage):
 
-    def __init__(self, bdata):
-        super().__init__(midi_constants.TIME_SIG_DATA_SIZE, bdata)
+    btype = b'\x59'
+    name = "key signature"
+
+    def __init__(self, bdelta, bstatus, blength, bdata):
+        super().__init__(bdelta, bstatus, blength, bdata)
+        if bstatus != b'\xFF':
+            raise IncorrectStatusException("Invalid status: {:2x} for meta event".format(bstatus))
         self.minor_flag: bool = None
         self.key = None
 

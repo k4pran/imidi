@@ -1,4 +1,5 @@
-from midi_reader import MidiReader, ChunkExtractor, MessageExtractor
+from midi_reader import ChunkExtractor, MessageExtractor
+from message_allocator import *
 
 
 class MidiFile:
@@ -15,13 +16,17 @@ class MidiFile:
             message_extractor = MessageExtractor(track)
             self.allocate_messages(message_extractor.events)
 
-    def allocate_messages(self, messages):
-        for message in messages:
-            delta = message[0]
-            status_byte = message[1][0]
-            length = message[1][1]
-            data = message[1][2]
-            print()
+    def allocate_messages(self, raw_messages):
+        ind = 0
+        for raw_message in raw_messages:
+            ind += 1
+            delta = raw_message[0]
+            status_byte = raw_message[1][0]
+            length = raw_message[1][1]
+            data = raw_message[1][2]
+
+            self.messages.append(allocate(delta, status_byte, length, data))
+        print()
 
 
 if __name__ == "__main__":

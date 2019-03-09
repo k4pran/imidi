@@ -1,10 +1,10 @@
-import message
+from message import Message
 
 
-class MidiMessage(message.Message):
+class MidiMessage(Message):
 
-    def __init__(self, bstatus, blength, bdata):
-        super().__init__(bstatus, blength, bdata)
+    def __init__(self, bdelta, bstatus, blength, bdata):
+        super().__init__(bdelta, bstatus, blength, bdata)
         self.channel: int = None
 
     def parse(self):

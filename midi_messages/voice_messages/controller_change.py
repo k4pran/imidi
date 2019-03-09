@@ -4,8 +4,8 @@ from midi_messages.midi_message import MidiMessage
 
 class ControllerChange(MidiMessage):
 
-    def __init__(self, bstatus, bdata):
-        super().__init__(bstatus, midi_constants.CONTROLLER_CHANGE_DATA_SIZE, bdata)
+    def __init__(self, bdelta, blength, bstatus, bdata):
+        super().__init__(bdelta, bstatus, blength, bdata)
         self.controller_num: int = None
         self.controller_val: int = None
 

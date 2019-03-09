@@ -1,13 +1,16 @@
-import midi_constants
-from meta_messages import meta_message
+from meta_messages.meta_message import MetaMessage
+from midi_exceptions import IncorrectStatusException
 
 
-class TimeSignature(meta_message.MetaMessage):
+class TimeSignature(MetaMessage):
 
-    type = b'\x58'
+    btype = b'\x58'
+    name = "time signature"
 
-    def __init__(self, bdata):
-        super().__init__(midi_constants.TIME_SIG_DATA_SIZE, bdata)
+    def __init__(self, bdelta, bstatus, blength, bdata):
+        super().__init__(bdelta, bstatus, blength, bdata)
+        if bstatus != b'\xFF':
+            raise IncorrectStatusException("Invalid status: {:2x} for meta event".format(bstatus))
         self.numerator: int = None
         self.denominator: int = None
         self.clocks_per_tick: int = None

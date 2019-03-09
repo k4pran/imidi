@@ -3,10 +3,10 @@ import abc
 
 class Message:
 
-    def __init__(self, bstatus, blength, bdata):
-        self.bstatus = bstatus
+    def __init__(self, bdelta, bstatus, blength, bdata):
+        self.bdelta = bdelta
         self.blength = blength
-        self.bdata   = bdata
+        self.bdata = bdata
 
     @abc.abstractmethod
     def parse(self):

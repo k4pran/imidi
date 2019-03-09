@@ -1,12 +1,16 @@
-from meta_messages import meta_message
+from meta_messages.meta_message import MetaMessage
+from midi_exceptions import IncorrectStatusException
 
 
-class TextMessage(meta_message.MetaMessage):
+class TextMessage(MetaMessage):
 
-    type = b'\x01'
+    btype = b'\x01'
+    name = "text"
 
-    def __init__(self, blength, bdata):
-        super().__init__(blength, bdata)
+    def __init__(self, bdelta, bstatus, blength, bdata):
+        super().__init__(bdelta, bstatus, blength, bdata)
+        if bstatus != b'\xFF':
+            raise IncorrectStatusException("Invalid status: {:2x} for meta event".format(bstatus))
         self.text = ""
 
     def parse(self):

@@ -1,12 +1,16 @@
-from meta_messages import meta_message
+from meta_messages.meta_message import MetaMessage
+from midi_exceptions import IncorrectStatusException
 
 
-class CopyrightNotice(meta_message.MetaMessage):
+class CopyrightNotice(MetaMessage):
 
-    type = b'\x02'
+    btype = b'\x02'
+    name = "copyright notice"
 
-    def __init__(self, blength, bdata):
-        super().__init__(blength, bdata)
+    def __init__(self, bdelta, bstatus, blength, bdata):
+        super().__init__(bdelta, bstatus, blength, bdata)
+        if bstatus != b'\xFF':
+            raise IncorrectStatusException("Invalid status: {:2x} for meta event".format(bstatus))
         self.copyright_text = ""
 
     def parse(self):

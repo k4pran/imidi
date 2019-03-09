@@ -4,8 +4,8 @@ from midi_messages.midi_message import MidiMessage
 
 class ProgramChange(MidiMessage):
 
-    def __init__(self, bstatus, bdata):
-        super().__init__(bstatus, midi_constants.PROGRAM_CHANGE_DATA_SIZE, bdata)
+    def __init__(self, bdelta, blength, bstatus, bdata):
+        super().__init__(bdelta, blength, bstatus, bdata)
         self.program_num: int = None
 
     def parse(self):

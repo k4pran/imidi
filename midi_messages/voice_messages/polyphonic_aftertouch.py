@@ -4,8 +4,8 @@ from midi_messages.midi_message import MidiMessage
 
 class PolyphonicAftertouch(MidiMessage):
 
-    def __init__(self, bstatus, bdata):
-        super().__init__(bstatus, midi_constants.POLY_AFTERTOUCH_DATA_SIZE, bdata)
+    def __init__(self, bdelta, blength, bstatus, bdata):
+        super().__init__(bdelta, bstatus, blength, bdata)
         self.key: int = None
         self.pressure: int = None
 

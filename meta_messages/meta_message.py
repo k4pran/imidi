@@ -12,8 +12,8 @@ class MetaMessage(Message):
         b'\x51', b'\x54', b'\x58',
         b'\x59'])
 
-    def __init__(self, blength, bdata):
-        super().__init__(MetaMessage.bstatus, blength, bdata)
+    def __init__(self, bdelta, bstatus, blength, bdata):
+        super().__init__(bdelta, bstatus, blength, bdata)
         self.type = self.determine_type()
 
     @abc.abstractmethod
@@ -22,4 +22,8 @@ class MetaMessage(Message):
 
     def determine_type(self):
         type_ind = midi_constants.META_TYPE_IND
-        return self.bdata[type_ind, type_ind + midi_constants.META_TYPE_SIZE]
+        return self.bdata[type_ind: type_ind + midi_constants.META_TYPE_SIZE]
+
+    def create_meta_message(self, bdelta, bstatus, blength, bdata):
+        pass
+

@@ -1,13 +1,16 @@
-import midi_constants
-from meta_messages import meta_message
+from meta_messages.meta_message import MetaMessage
+from midi_exceptions import IncorrectStatusException
 
 
-class SMTPEOffset(meta_message.MetaMessage):
+class SMTPEOffset(MetaMessage):
 
-    type = b'\x54'
+    btype = b'\x54'
+    name = "SMTPE offset"
 
-    def __init__(self, bdata):
-        super().__init__(midi_constants.SMTPE_OFFSET_DATA_SIZE, bdata)
+    def __init__(self, bdelta, bstatus, blength, bdata):
+        super().__init__(bdelta, bstatus, blength, bdata)
+        if bstatus != b'\xFF':
+            raise IncorrectStatusException("Invalid status: {:2x} for meta event".format(bstatus))
         self.hours: int = None
         self.mins: int = None
         self.secs: int = None

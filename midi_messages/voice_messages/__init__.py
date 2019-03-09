@@ -1,0 +1,7 @@
+from midi_messages.voice_messages.program_change import ProgramChange
+from midi_messages.voice_messages.polyphonic_aftertouch import PolyphonicAftertouch
+from midi_messages.voice_messages.pitch_bend import PitchBend
+from midi_messages.voice_messages.note_on import NoteOn
+from midi_messages.voice_messages.note_off import NoteOff
+from midi_messages.voice_messages.controller_change import ControllerChange
+from midi_messages.voice_messages.channel_aftertouch import ChannelAftertouch

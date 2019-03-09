@@ -4,8 +4,8 @@ from midi_messages.midi_message import MidiMessage
 
 class NoteOn(MidiMessage):
 
-    def __init__(self, bstatus, bdata):
-        super().__init__(bstatus, midi_constants.NOTE_ON_DATA_SIZE, bdata)
+    def __init__(self, bdelta, blength, bstatus, bdata):
+        super().__init__(bdelta, bstatus, blength, bdata)
         self.key: int = None
         self.velocity: int = None
 

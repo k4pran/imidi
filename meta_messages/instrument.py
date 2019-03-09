@@ -1,12 +1,16 @@
-from meta_messages import meta_message
+from meta_messages.meta_message import MetaMessage
+from midi_exceptions import IncorrectStatusException
 
 
-class Instrument(meta_message.MetaMessage):
+class Instrument(MetaMessage):
 
-    type = b'\x04'
+    btype = b'\x04'
+    name = "instrument name"
 
-    def __init__(self, blength, bdata):
-        super().__init__(blength, bdata)
+    def __init__(self, bdelta, bstatus, blength, bdata):
+        super().__init__(bdelta, bstatus, blength, bdata)
+        if bstatus != b'\xFF':
+            raise IncorrectStatusException("Invalid status: {:2x} for meta event".format(bstatus))
         self.instrument = ""
 
     def parse(self):

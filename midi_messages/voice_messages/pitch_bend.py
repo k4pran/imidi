@@ -4,8 +4,8 @@ from midi_messages.midi_message import MidiMessage
 
 class PitchBend(MidiMessage):
 
-    def __init__(self, bstatus, bdata):
-        super().__init__(bstatus, midi_constants.PITCH_BEND_DATA_SIZE, bdata)
+    def __init__(self, bdelta, blength, bstatus, bdata):
+        super().__init__(bdelta, bstatus, blength, bdata)
         self.lsb: int = None
         self.msb: int = None
 

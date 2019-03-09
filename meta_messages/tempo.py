@@ -1,15 +1,19 @@
 import midi_constants
-from meta_messages import meta_message
+from meta_messages.meta_message import MetaMessage
+from midi_exceptions import IncorrectStatusException
 
 
-class Tempo(meta_message.MetaMessage):
+class Tempo(MetaMessage):
 
-    type = b'\x51'
+    btype = b'\x51'
+    name = "set tempo"
     default_microseconds = 500000
     default_beats = 120
 
-    def __init__(self, bdata):
-        super().__init__(midi_constants.TEMPO_DATA_SIZE, bdata)
+    def __init__(self, bdelta, bstatus, blength, bdata):
+        super().__init__(bdelta, bstatus, blength, bdata)
+        if bstatus != b'\xFF':
+            raise IncorrectStatusException("Invalid status: {:2x} for meta event".format(bstatus))
         self.microseconds = None
 
     def parse(self):
