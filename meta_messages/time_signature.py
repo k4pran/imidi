@@ -1,10 +1,12 @@
 from meta_messages.meta_message import MetaMessage
 from midi_exceptions import IncorrectStatusException
+from midi_common import MessageType
 
 
 class TimeSignature(MetaMessage):
 
     btype = b'\x58'
+    message_type = MessageType.TIME_SIGNATURE
     name = "time signature"
 
     def __init__(self, bdelta, bstatus, blength, bdata):

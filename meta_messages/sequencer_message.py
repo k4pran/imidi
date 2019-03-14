@@ -1,11 +1,13 @@
 import midi_constants
 from meta_messages.meta_message import MetaMessage
 from midi_exceptions import IncorrectStatusException
+from midi_common import MessageType
 
 
 class SequencerMessage(MetaMessage):
 
     btype = b'\x7F'
+    message_type = MessageType.SEQUENCER_MESSAGE
     name = "sequencer specific meta"
 
     def __init__(self, bdelta, bstatus, blength, bdata):

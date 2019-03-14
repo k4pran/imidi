@@ -1,12 +1,13 @@
 from meta_messages.meta_message import MetaMessage
 from enum import Enum
-
+from midi_common import MessageType
 from midi_exceptions import IncorrectStatusException
 
 
 class KeySignature(MetaMessage):
 
     btype = b'\x59'
+    message_type = MessageType.KEY_SIGNATURE
     name = "key signature"
 
     def __init__(self, bdelta, bstatus, blength, bdata):

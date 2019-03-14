@@ -1,10 +1,12 @@
 from meta_messages.meta_message import MetaMessage
 from midi_exceptions import IncorrectStatusException
+from midi_common import MessageType
 
 
 class TextMessage(MetaMessage):
 
     btype = b'\x01'
+    message_type = MessageType.TEXT_MESSAGE
     name = "text"
 
     def __init__(self, bdelta, bstatus, blength, bdata):

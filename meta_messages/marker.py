@@ -1,10 +1,12 @@
 from meta_messages.meta_message import MetaMessage
 from midi_exceptions import IncorrectStatusException
+from midi_common import MessageType
 
 
 class Marker(MetaMessage):
 
     btype = b'\x06'
+    message_type = MessageType.MARKER
     name  = "marker"
 
     def __init__(self, bdelta, bstatus, blength, bdata):

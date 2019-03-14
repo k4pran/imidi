@@ -91,20 +91,20 @@ class MessageExtractor:
     def __read_data(self):
         status_byte = self.__next_byte()
         try:
-            message_type = MessageType.resolveStatusByte(status_byte)
+            message_type = MessageCategory.resolveStatusByte(status_byte)
             self.running_status = status_byte
         except StatusNotFoundException:
-            message_type = MessageType.resolveStatusByte(self.running_status)
+            message_type = MessageCategory.resolveStatusByte(self.running_status)
             status_byte = self.running_status
             self.byte_pos -= 1
 
-        if message_type == MessageType.MIDI_MESSAGE:
+        if message_type == MessageCategory.MIDI_MESSAGE:
             return self.__extract_midi_message(status_byte)
 
-        elif message_type == MessageType.META_MESSAGE:
+        elif message_type == MessageCategory.META_MESSAGE:
             return self.__extract_meta_message(status_byte)
 
-        elif message_type == MessageType.SYSEX_MESSAGE:
+        elif message_type == MessageCategory.SYSEX_MESSAGE:
             return self.__extract_sysex_message(status_byte)
 
         else:

@@ -1,4 +1,4 @@
-from midi_common import MessageType
+from midi_common import MessageCategory
 from meta_messages import *
 from midi_messages.voice_messages import *
 from midi_messages.mode_messages import *
@@ -7,15 +7,15 @@ from midi_exceptions import *
 
 
 def allocate(bdelta, bstatus, blength, bdata):
-    message_type = MessageType.resolveStatusByte(bstatus)
+    message_type = MessageCategory.resolveStatusByte(bstatus)
 
-    if message_type == MessageType.MIDI_MESSAGE:
+    if message_type == MessageCategory.MIDI_MESSAGE:
         return create_midi_message(bdelta, bstatus, blength, bdata)
 
-    elif message_type == MessageType.META_MESSAGE:
+    elif message_type == MessageCategory.META_MESSAGE:
         return create_meta_message(bdelta, bstatus, blength, bdata)
 
-    elif message_type == MessageType.SYSEX_MESSAGE:
+    elif message_type == MessageCategory.SYSEX_MESSAGE:
         return create_sysex_message(bdelta, bstatus, blength, bdata)
 
 
@@ -52,10 +52,10 @@ def create_midi_message(bdelta, bstatus, blength, bdata):
             return ResetControllers(bdelta, bstatus, blength, bdata)
 
         elif midi_type == '7A':
-            return LocalChange(bdelta, bstatus, blength, bdata)
+            return LocalControl(bdelta, bstatus, blength, bdata)
 
         elif midi_type == '7B':
-            return NotesOff(bdelta, bstatus, blength, bdata)
+            return AllNotesOff(bdelta, bstatus, blength, bdata)
 
         elif midi_type == '7C':
             return OmniModeOff(bdelta, bstatus, blength, bdata)

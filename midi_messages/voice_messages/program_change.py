@@ -1,12 +1,15 @@
 import midi_constants
 from midi_messages.midi_message import MidiMessage
+from midi_common import MessageType
 
 
 class ProgramChange(MidiMessage):
 
+    message_type = MessageType.PROGRAM_CHANGE
+
     def __init__(self, bdelta, blength, bstatus, bdata):
         super().__init__(bdelta, blength, bstatus, bdata)
-        self.program_num: int = None
+        self.program_num = self.bdata[0]
 
     def parse(self):
-        self.program_num = int.from_bytes(self.bdata, byteorder='big')
+        pass

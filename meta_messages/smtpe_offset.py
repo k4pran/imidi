@@ -1,10 +1,12 @@
 from meta_messages.meta_message import MetaMessage
 from midi_exceptions import IncorrectStatusException
+from midi_common import MessageType
 
 
 class SMTPEOffset(MetaMessage):
 
     btype = b'\x54'
+    message_type = MessageType.SMTPE_OFFSET
     name = "SMTPE offset"
 
     def __init__(self, bdelta, bstatus, blength, bdata):

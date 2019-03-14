@@ -1,10 +1,12 @@
 from meta_messages.meta_message import MetaMessage
 from midi_exceptions import IncorrectStatusException
+from midi_common import MessageType
 
 
 class ChannelPrefix(MetaMessage):
 
     btype = b'\x20'
+    message_type = MessageType.CHANNEL_PREFIX
     name = "channel prefix"
 
     def __init__(self, bdelta, bstatus, blength, bdata):

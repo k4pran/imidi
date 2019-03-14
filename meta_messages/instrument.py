@@ -1,10 +1,12 @@
 from meta_messages.meta_message import MetaMessage
 from midi_exceptions import IncorrectStatusException
+from midi_common import MessageType
 
 
 class Instrument(MetaMessage):
 
     btype = b'\x04'
+    message_type = MessageType.INSTRUMENT
     name = "instrument name"
 
     def __init__(self, bdelta, bstatus, blength, bdata):

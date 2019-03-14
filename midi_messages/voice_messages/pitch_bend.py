@@ -1,14 +1,16 @@
 import midi_constants
 from midi_messages.midi_message import MidiMessage
+from midi_common import MessageType
 
 
 class PitchBend(MidiMessage):
+    
+    message_type = MessageType.PITCH_BEND
 
     def __init__(self, bdelta, blength, bstatus, bdata):
         super().__init__(bdelta, bstatus, blength, bdata)
-        self.lsb: int = None
-        self.msb: int = None
+        self.lsb = self.bdata[0]
+        self.msb = self.bdata[1]
 
     def parse(self):
-        self.lsb = int.from_bytes(self.bdata[0], byteorder='big')
-        self.msb = int.from_bytes(self.bdata[1], byteorder='big')
+        pass

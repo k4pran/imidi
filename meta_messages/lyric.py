@@ -1,10 +1,12 @@
 from meta_messages.meta_message import MetaMessage
 from midi_exceptions import IncorrectStatusException
+from midi_common import MessageType
 
 
 class Lyric(MetaMessage):
 
     btype = b'\x05'
+    message_type = MessageType.LYRIC
     name = "lyric"
 
     def __init__(self, bdelta, bstatus, blength, bdata):

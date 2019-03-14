@@ -1,10 +1,12 @@
 from meta_messages.meta_message import MetaMessage
 from midi_exceptions import IncorrectStatusException
+from midi_common import MessageType
 
 
 class SequenceNumber(MetaMessage):
 
     btype = b'\x00'
+    message_type = MessageType.SEQUENCE_NUMBER
     name = "sequence number"
 
     def __init__(self, bdelta, bstatus, blength, bdata):
