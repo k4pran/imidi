@@ -4,22 +4,27 @@ from message_allocator import *
 from midi_common import MessageType
 from track import Track
 from note import Note
+from pathlib import Path
 
 class MidiFile:
 
     def __init__(self, midi_path):
         self.midi_path = midi_path
-        self.name = None
+        self.name = Path(midi_path).stem
         self.header = None
         self.tracks = []
-        self.note_on_msgs = []
-        self.note_off_msgs = []
+
+        self.copyright_notice = ""
+
+        self._current_track = None
+
         self.load_midi()
 
     def load_midi(self):
         chunk_extractor = ChunkExtractor(self.midi_path)
         self.header = Header(chunk_extractor.header)
         for track in chunk_extractor.tracks:
+            self._current_track = track
             message_extractor = MessageExtractor(track)
             self.tracks.append(Track(message_extractor.track[1], message_extractor.track[2]))
             self.allocate_messages(message_extractor.events)
@@ -32,30 +37,14 @@ class MidiFile:
             data = raw_message[1][2]
 
             message = allocate(delta, status_byte, length, data)
-            self.tracks[-1].messages.append(message)
-            self.handle_message(message)
+            self._current_track.add_message(message)
+        self._current_track.parse()
+        self.handle_special(message)
 
-        Note.pair_notes(self.note_on_msgs, self.note_off_msgs)
+    def handle_special(self, message):
+        if message.message_type == MessageType.COPYRIGHT_NOTICE:
+            self.copyright_notice = message.copyright_text
 
-    def handle_message(self, message):
-        message_type = message.message_type
-        if message_type == MessageType.NOTE_ON:
-            if message.velocity == 0:
-                self.note_off_msgs.append(message)
-            else:
-                self.note_on_msgs.append(message)
-
-        elif message_type == MessageType.NOTE_OFF or message_type == MessageType.ALL_NOTES_OFF:
-            self.note_off_msgs.append(message)
-
-        elif message_type == MessageType.TIME_SIGNATURE:
-            pass
-
-        elif message_type == MessageType.KEY_SIGNATURE:
-            pass
-
-        elif message_type == MessageType.TEMPO:
-            pass
 
     def get_track_count(self):
         return self.header.tracks

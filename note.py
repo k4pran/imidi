@@ -3,7 +3,6 @@
 class Note:
 
     def __init__(self, note_on, note_off):
-        pass
         self.value = note_on.note
         self.velocity = note_on.velocity
         self.start_time = note_on.delta
@@ -21,4 +20,5 @@ class Note:
 
                 if note_off.note == note_on.note:
                     notes.append(Note(note_on, note_off))
+        return notes
 
