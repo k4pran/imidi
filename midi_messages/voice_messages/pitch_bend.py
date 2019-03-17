@@ -14,3 +14,6 @@ class PitchBend(MidiMessage):
 
     def parse(self):
         pass
+
+    def __str__(self):
+        return "|| Pitch bend || {padding:10} coarse - {0} {padding:4} fine - {1}".format(self.msb, self.lsb, padding="")

@@ -1,4 +1,5 @@
 from note import Note
+from midi_common import MessageType
 
 class Track:
 

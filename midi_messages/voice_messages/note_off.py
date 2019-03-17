@@ -14,3 +14,6 @@ class NoteOff(MidiMessage):
 
     def parse(self):
         pass
+
+    def __str__(self):
+        return "|| Note Off       || {padding:10} note     - {0} {padding:4} velocity - {1}".format(self.note, self.velocity, padding="")

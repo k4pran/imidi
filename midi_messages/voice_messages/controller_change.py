@@ -1,4 +1,4 @@
-import midi_constants
+from midi_constants import *
 from midi_messages.midi_message import MidiMessage
 from midi_common import MessageType
 
@@ -11,6 +11,11 @@ class ControllerChange(MidiMessage):
         super().__init__(bdelta, bstatus, blength, bdata)
         self.controller_num = self.bdata[0]
         self.controller_val = self.bdata[1]
+        print(self.__str__())
 
     def parse(self):
         pass
+
+    def __str__(self):
+        return "|| Control change || {padding:10} function - {0} {padding:4} value - {1}".format(
+            CONTROL_CHANGE_MAP[self.controller_num], self.controller_val, padding="")

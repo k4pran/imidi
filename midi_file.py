@@ -24,7 +24,7 @@ class MidiFile:
         chunk_extractor = ChunkExtractor(self.midi_path)
         self.header = Header(chunk_extractor.header)
         for track in chunk_extractor.tracks:
-            self._current_track = track
+            self._current_track = Track(track[1], track[2])
             message_extractor = MessageExtractor(track)
             self.tracks.append(Track(message_extractor.track[1], message_extractor.track[2]))
             self.allocate_messages(message_extractor.events)
