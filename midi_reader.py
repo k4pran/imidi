@@ -12,7 +12,6 @@ class MidiReader:
 
     def open_file(self):
         self.file = open(self.filename, 'rb')
-        print()
 
     def read_bytes(self, n_bytes):
         while True:
@@ -136,7 +135,7 @@ class MessageExtractor:
             length_bytes_read = False
             while not length_bytes_read:
                 next_byte = self.__next_byte()
-                data_length += bytes([(next_byte[0] >> 1)])
+                data_length += (next_byte[0] & ~(1 << 7)).to_bytes(1, byteorder='big')
                 length_bytes_read = (next_byte[0] >> 7) & 1 == 0
 
         for _ in range(int.from_bytes(data_length, byteorder='big')):
@@ -150,7 +149,7 @@ class MessageExtractor:
         length_bytes_read = False
         while not length_bytes_read:
             next_byte = self.__next_byte()
-            data_length += bytes([(next_byte[0] >> 1)])
+            data_length += (next_byte[0] & ~(1 << 7)).to_bytes(1, byteorder='big')
             length_bytes_read = (next_byte[0] >> 7) & 1 == 0
 
         for _ in range(int.from_bytes(data_length, byteorder='big')):

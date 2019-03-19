@@ -11,7 +11,6 @@ class ControllerChange(MidiMessage):
         super().__init__(bdelta, bstatus, blength, bdata)
         self.controller_num = self.bdata[0]
         self.controller_val = self.bdata[1]
-        print(self.__str__())
 
     def parse(self):
         pass

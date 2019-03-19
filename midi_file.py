@@ -38,8 +38,9 @@ class MidiFile:
 
             message = allocate(delta, status_byte, length, data)
             self._current_track.add_message(message)
+            self.handle_special(message)
+
         self._current_track.parse()
-        self.handle_special(message)
 
     def handle_special(self, message):
         if message.message_type == MessageType.COPYRIGHT_NOTICE:
@@ -52,4 +53,3 @@ class MidiFile:
 
 if __name__ == "__main__":
     midi_file = MidiFile("resources/Frozen - Let it go.midi")
-    print()

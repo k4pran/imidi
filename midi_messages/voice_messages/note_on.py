@@ -11,7 +11,6 @@ class NoteOn(MidiMessage):
         super().__init__(bdelta, bstatus, blength, bdata)
         self.note = self.bdata[0]
         self.velocity = self.bdata[1]
-        print(self)
 
     def parse(self):
         pass

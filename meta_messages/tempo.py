@@ -18,7 +18,6 @@ class Tempo(MetaMessage):
             raise IncorrectStatusException("Invalid status: {:2x} for meta event".format(bstatus))
         self.microseconds = None
         self.microseconds = int.from_bytes(self.bdata[1:], byteorder='big')
-        print()
 
     def parse(self):
         pass
