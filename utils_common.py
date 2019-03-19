@@ -2,7 +2,7 @@ import os
 from pathlib import Path
 
 from midi_file import MidiFile
-from midi_constants import MIDI_HEADER_SIG
+from midi_constants import MIDI_HEADER_SIG, NOTES_PER_OCTAVE, NOTE_NAMES
 
 
 def is_midi(path):
@@ -27,3 +27,9 @@ def get_midis_from_dir(dir_path):
                 midis_found.append(MidiFile(abs_path))
                 print("Adding midi file: {}".format(Path(abs_path).stem))
     return midis_found
+
+
+def get_note_name(val):
+    octave = int(val / NOTES_PER_OCTAVE) - 1
+    note_name = NOTE_NAMES[val % NOTES_PER_OCTAVE]
+    return note_name + str(octave)

@@ -1,6 +1,7 @@
 import midi_constants
 from midi_messages.midi_message import MidiMessage
 from midi_common import MessageType
+from utils_common import get_note_name
 
 
 class NoteOn(MidiMessage):
@@ -9,8 +10,10 @@ class NoteOn(MidiMessage):
 
     def __init__(self, bdelta, blength, bstatus, bdata):
         super().__init__(bdelta, bstatus, blength, bdata)
-        self.note = self.bdata[0]
+        self.note_val = self.bdata[0]
         self.velocity = self.bdata[1]
+
+        self.note = get_note_name(self.note_val)
 
     def parse(self):
         pass

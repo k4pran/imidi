@@ -33,6 +33,16 @@ PROGRAM_CHANGE_DATA_SIZE = 1
 CHANNEL_AFTERTOUCH_DATA_SIZE = 1
 PITCH_BEND_DATA_SIZE = 2
 
+# Notes
+
+NOTES_PER_OCTAVE = 12
+BOTTOM_OCTAVE = -2
+TOP_OCTAVE = 8
+BOTTOM_NOTE = "C"
+TOP_NOTE = "G"
+MIDDLE_C = "C4"
+
+NOTE_NAMES = ("C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B")
 
 # Message start index
 META_TYPE_IND = 1
@@ -170,3 +180,4 @@ CONTROL_CHANGE_MAP = {
     126: "MONO MODE ON",
     127: "POLY MODE ON"
 }
+
